@@ -131,11 +131,20 @@ $paginacion .= '</ul>';
         a:hover {
             color: #a52a2a;
         }
+        .pp{
+            align-items: center;
+            display: flex;
+            color: #fff;
+        }
+        .pp:hover{
+            color: #a52a2a;
+        }
     </style>
 </head>
 <body>
     <div class="container-custom">
         <h2 class="my-4 text-light">Remeras</h2>
+        <a href="./TP DOM/vid_1_RIVAROLA.php" class="pp">Pagina Principal</a>
 
         <?php if(isset($_SESSION['msg'])){?>
             <div>
