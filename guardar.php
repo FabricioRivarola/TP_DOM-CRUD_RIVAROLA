@@ -21,10 +21,11 @@ if (isset($_POST['nombre'])) {
             }
 
             // Genera un nombre único para la imagen
-            $foto = $dir . '/' . uniqid() . '.jpg';
-            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $foto)) {
-                $_SESSION['msg'] .= "<br>Error al guardar la imagen";
-            }
+            $nombre_foto = uniqid() . '.jpg'; // Solo guarda el nombre del archivo
+        $foto = $nombre_foto; // Almacena solo el nombre, sin la ruta
+        if (!move_uploaded_file($_FILES['foto']['tmp_name'], $dir . '/' . $foto)) {
+            $_SESSION['msg'] .= "<br>Error al guardar la imagen";
+        }
         } else {
             $_SESSION['msg'] .= "<br>Formato de imagen no válido";
         }

@@ -195,31 +195,36 @@ $paginacion .= '</ul>';
                 </tr>
             </thead>
             <tbody id="content">
-                <?php if ($remeras->num_rows > 0): ?>
-                    <?php while ($row = $remeras->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo $row['id']; ?></td>
-                        <td><?php echo htmlspecialchars($row['nombre']); ?></td>
-                        <td><?php echo htmlspecialchars($row['genero']); ?></td>
-                        <td><?php echo htmlspecialchars($row['marca']); ?></td>
-                        <td><?php echo htmlspecialchars($row['fecha_creacion']); ?></td>
-                        <td><?php echo htmlspecialchars($row['fecha_ingreso']); ?></td>
-                        <td><?php echo htmlspecialchars($row['valor']); ?></td>
-                        <td>
-                            <img src="<?php echo $dir . $row['id'] . '.jpg'; ?>" alt="foto remera" width="100px">
-                        </td>
+            <?php if ($remeras->num_rows > 0): ?>
+                <?php while ($row = $remeras->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo htmlspecialchars($row['nombre']); ?></td>
+                    <td><?php echo htmlspecialchars($row['genero']); ?></td>
+                    <td><?php echo htmlspecialchars($row['marca']); ?></td>
+                    <td><?php echo htmlspecialchars($row['fecha_creacion']); ?></td>
+                    <td><?php echo htmlspecialchars($row['fecha_ingreso']); ?></td>
+                    <td><?php echo htmlspecialchars($row['valor']); ?></td>
+                    <td>
+                        <?php if (!empty($row['foto'])): ?>
+                            <img src="<?php echo htmlspecialchars($row['foto']); ?>" alt="Imagen de Remera" width="100px">
+                        <?php else: ?>
+                            <img src="imagenes/logo.jpg" alt="Imagen predeterminada" width="100px"> <!-- Imagen predeterminada si no hay foto -->
+                        <?php endif; ?>
+                    </td>
 
-                        <td>
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#remeraModal"
-                                    onclick="cargarDatos(<?php echo $row['id']; ?>, '<?php echo addslashes($row['nombre']); ?>', '<?php echo addslashes($row['genero']); ?>', '<?php echo addslashes($row['marca']); ?>', '<?php echo $row['fecha_creacion']; ?>', '<?php echo $row['fecha_ingreso']; ?>', <?php echo $row['valor']; ?>)">
-                                Editar
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger" onclick="abrirEliminarModal(<?php echo $row['id']; ?>)">Eliminar</button>
-                        </td>
-                    </tr>
-                    <?php endwhile; ?>
+                    
+                    <td>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#remeraModal"
+                                onclick="cargarDatos(<?php echo $row['id']; ?>, '<?php echo addslashes($row['nombre']); ?>', '<?php echo addslashes($row['genero']); ?>', '<?php echo addslashes($row['marca']); ?>', '<?php echo $row['fecha_creacion']; ?>', '<?php echo $row['fecha_ingreso']; ?>', <?php echo $row['valor']; ?>)">
+                            Editar
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="abrirEliminarModal(<?php echo $row['id']; ?>)">Eliminar</button>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
                         <td colspan="10" class="text-center">No hay registros disponibles</td>
@@ -305,7 +310,9 @@ $paginacion .= '</ul>';
             $('#fecha_creacion').val(fecha_creacion);
             $('#fecha_ingreso').val(fecha_ingreso);
             $('#valor').val(valor);
-            $('#foto').val(foto);
+            $('#foto').val('');
+
+            
         }
 
         // Limpiar campos para crear nueva remera
